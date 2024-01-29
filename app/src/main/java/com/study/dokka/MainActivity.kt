@@ -5,6 +5,7 @@ import android.os.Bundle
 
 /**
  * 메인 액티비티 테스트 입니다.
+ * 또테스트!!
  */
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
