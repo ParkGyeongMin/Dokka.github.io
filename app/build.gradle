@@ -1,16 +1,17 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'org.jetbrains.dokka' version '1.6.10'
 }
 
 android {
     namespace 'com.study.dokka'
-    compileSdk 32
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.study.dokka"
         minSdk 30
-        targetSdk 32
+        targetSdk 34
         versionCode 1
         versionName "1.0"
 
@@ -30,6 +31,37 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    packagingOptions {
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/LICENSE.md'
+        exclude 'META-INF/NOTICE.md'
+        //exclude 'META-INF/kotlin-stdlib.kotlin_module'
+    }
+
+    dokkaHtml.configure {
+        dokkaSourceSets {
+            configureEach {
+                skipDeprecated.set(true)
+                outputDirectory.set(new File("$buildDir/dokka"))
+//                    documentedVisibilities.set([DokkaConfiguration.Visibility.PUBLIC,
+//                                                DokkaConfiguration.Visibility.PRIVATE,
+//                                                DokkaConfiguration.Visibility.PROTECTED,
+//                                                DokkaConfiguration.Visibility.INTERNAL,
+//                                                DokkaConfiguration.Visibility.PACKAGE])
+
+                skipEmptyPackages.set(true)
+                skipDeprecated.set(true)
+                suppressGeneratedFiles.set(false)
+                noJdkLink.set(true)
+                noStdlibLink.set(true)
+                noAndroidSdkLink.set(true)
+                includeNonPublic.set(false)
+            }
+        }
+    }
+
 }
 
 dependencies {
@@ -41,4 +73,8 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+    implementation 'org.jetbrains.dokka:dokka-gradle-plugin:1.6.10'
+    dokkaHtmlPlugin("org.jetbrains.dokka:kotlin-as-java-plugin:1.6.10")
+    dokkaHtmlPlugin("org.jetbrains.dokka:android-documentation-plugin:1.6.10")
 }
