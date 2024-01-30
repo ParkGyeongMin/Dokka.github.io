@@ -60,9 +60,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-
       - name: Set up JDK
         uses: actions/setup-java@v2
         with:
@@ -70,8 +67,7 @@ jobs:
           java-version: '11'
 
       - name: Build with Gradle
-        run: |
-          ./gradlew dokkaHtml
+        run: ./gradlew dokkaHtml
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
